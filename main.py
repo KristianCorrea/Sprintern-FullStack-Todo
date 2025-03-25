@@ -5,7 +5,7 @@ from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 
 # Import database setup functions from db_task_model module
-from db_task_model import create_db_and_tables, get_session
+from model import create_db_and_tables, get_session
 # Import Task model from task_model module
 from task_model import Task
 # Import all functions from db_task_service module
