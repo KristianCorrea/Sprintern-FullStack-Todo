@@ -4,22 +4,35 @@ from pydantic import BaseModel
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
 
+
 # Define a Task model class that inherits from SQLModel
 # The table=True parameter indicates this class will be mapped to a database table
 class Task(SQLModel, table=True):
-    # Integer primary key field that can be None (auto-incremented by database)
-    id: int | None = Field(default=None, primary_key=True)
+    # Integer primary key field that can be None (auto-incremented by database)ß
+    id: int | None = Field(default=None, primary_key=True )
+    userId: int = Field(default=None, primary_key=True ,foreign_key="user.id")
     # String field for task description with empty string as default
     description: str = Field(default="")
     # Boolean field to track completion status with False as default
     isComplete: bool = Field(default=False)
+
+    
+class User(SQLModel, table = True):
+
+    name : str = Field(default="")
+    id: int | None = Field(default=None,primary_key=True)
+    email : str = Field(default="")
+    password : str = Field(default="")
+    
+
+
 
 
 # Define database name
 mysql_name = "hi"
 # Construct MySQL connection URL using PyMySQL driver
 # Format: mysql+pymysql://username:password@host:port/database_name
-mysql_url = f"mysql+pymysql://root:password@localhost:3306/{mysql_name}"
+mysql_url = f"mysql+pymysql://root:vidaisthebest029@localhost:3306/{mysql_name}"
 
 # Create database engine using the connection URL
 # This establishes a connection pool to the database
