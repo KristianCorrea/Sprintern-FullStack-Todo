@@ -11,6 +11,7 @@ from task_model import Task
 # Import all functions from db_task_service module
 from db_task_service import *  # Importing all database service functions
 
+from db_user_service import *
 # Import Session class from sqlmodel for type hinting
 from sqlmodel import Session
 
@@ -31,7 +32,7 @@ def root():
     return "Hello World"
 
 # Endpoint to get all tasks
-@app.get("/tasks/all")
+@app.get("/tasks/all/")
 def get_all(session: Session = Depends(get_session)):
     # Use the get_session dependency to inject a database session
     # Then call get_all_tasks service function with that session
