@@ -11,7 +11,7 @@ def increment():
 # Task model class
 class Task(BaseModel):
     id: int
-    description: str = ""  # Default empty string
+    description: str = ""  # Default empty string 
     isComplete: bool = False  # Default False
 
     # Custom constructor that automatically assigns a new ID

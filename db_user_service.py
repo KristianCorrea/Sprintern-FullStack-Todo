@@ -26,3 +26,13 @@ def delete_user(user_id : int,session: Session):
     session.delete(user)
     session.commit()
     return "User has been deleted!"  
+
+def login(email : str, password : str, session: Session):
+    statement = select(User).where(User.email == email)
+    user = session.exec(statement).first()
+
+    if not user:
+        return "email not found!"
+    hashed_password = hashlib.sha256(password.encode()).hexdigest()
+    if hashed_password == user.password:
+        return user
