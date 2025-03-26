@@ -42,7 +42,7 @@ def get_all(session: Session = Depends(get_session)):
 
 
 # Endpoint to create a new task
-@app.post("/task")
+@app.post("/task/")
 def create(task: Task, session: Session = Depends(get_session)):
     # Use the Task model for request body validation
     # Inject database session and call create_task service function

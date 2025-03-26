@@ -1,6 +1,6 @@
 from model import User
 from sqlmodel import select, Session
-
+import hashlib
 
 
 def get_user(user_id: int, session: Session):
@@ -11,9 +11,11 @@ def get_user(user_id: int, session: Session):
     return user
 
 def create_user(user: User, session: Session):
+    
+    user.password = hashlib.sha256(user.password.encode()).hexdigest()
     session.add(user)
     session.commit()
-    session.refresh()
+    session.refresh(user)
 
     return user
 def delete_user(user_id : int,session: Session):
