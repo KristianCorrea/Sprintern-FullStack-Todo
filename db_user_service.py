@@ -1,5 +1,4 @@
 from model import User
-
 from sqlmodel import select, Session
 
 

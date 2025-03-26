@@ -6,6 +6,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # Import database setup functions from db_task_model module
 from model import create_db_and_tables, get_session
+
+from user_router import my_router
 # Import Task model from task_model module
 from task_model import Task
 # Import all functions from db_task_service module
@@ -18,7 +20,7 @@ from sqlmodel import Session
 
 # Create a FastAPI application instance
 app = FastAPI()
-
+app.include_router(my_router)
 
 # Startup event handler - executes when the application starts
 @app.on_event("startup")
