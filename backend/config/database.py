@@ -1,9 +1,6 @@
 import os
 from dotenv import load_dotenv
-# Import BaseModel from pydantic library for data validation and schema definition
-from pydantic import BaseModel
-# Import several components from sqlmodel library for ORM functionality
-from sqlmodel import Field, Session, SQLModel, create_engine, select
+from sqlmodel import create_engine, SQLModel, Session
 
 # Load environment variables from .env file
 load_dotenv()
@@ -19,31 +16,10 @@ mysql_port = os.getenv("MYSQL_PORT")
 # Format: mysql+pymysql://username:password@host:port/database_name
 mysql_url = f"mysql+pymysql://{mysql_user}:{mysql_password}@{mysql_host}:{mysql_port}/{mysql_name}"
 
-# Define a Task model class that inherits from SQLModel
-# The table=True parameter indicates this class will be mapped to a database table
-class Task(SQLModel, table=True):
-    # Integer primary key field that can be None (auto-incremented by database)ß
-    id: int | None = Field(default=None, primary_key=True )
-    # userId: int = Field(default=None, primary_key=True ,foreign_key="user.id")
-    # String field for task description with empty string as default
-    description: str = Field(default="")
-    # Boolean field to track completion status with False as default
-    isComplete: bool = Field(default=False)
-
-    
-class User(SQLModel, table = True):
-
-    name : str = Field(default="")
-    id: int | None = Field(default=None,primary_key=True)
-    email : str = Field(default="")
-    password : str = Field(default="")
-
-
 # Create database engine using the connection URL
 # This establishes a connection pool to the database
 engine = create_engine(mysql_url)
 
-# Function to create database tables based on SQLModel definitions
 def create_db_and_tables():
     # This will create all tables that don't exist yet based on the SQLModel metadata
     SQLModel.metadata.create_all(engine)

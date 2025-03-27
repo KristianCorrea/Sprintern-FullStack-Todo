@@ -1,4 +1,4 @@
-from model import User
+from models.user import User
 from sqlmodel import select, Session
 import hashlib
 
@@ -12,7 +12,7 @@ def get_user(user_id: int, session: Session):
 
 def create_user(user: User, session: Session):
     
-    user.password = hashlib.sha256(user.password.encode()).hexdigest()
+    user.password_hash = hashlib.sha256(user.password_hash.encode()).hexdigest()
     session.add(user)
     session.commit()
     session.refresh(user)

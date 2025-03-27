@@ -1,5 +1,5 @@
 # Import the Task model from a module named db_task_model
-from model import Task
+from models.task import Task
 
 # Import select function and Session class from sqlmodel for database operations
 from sqlmodel import select, Session
@@ -62,8 +62,10 @@ def update_task(task_id: int, updated: Task, session: Session):
         return "Task Not Found"
     
     # Update the task's fields with values from the updated task object
+    task.title = updated.title
     task.description = updated.description
-    task.isComplete = updated.isComplete
+    task.is_completed = updated.is_completed
+    
     # Commit the changes to the database
     session.commit()
     # Refresh the task with data from the database
