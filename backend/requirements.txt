@@ -1,3 +1,5 @@
 fastapi[standard]
 sqlmodel
 pymysql
+cryptography
+python-dotenv

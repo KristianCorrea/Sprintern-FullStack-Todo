@@ -1,9 +1,23 @@
+import os
+from dotenv import load_dotenv
 # Import BaseModel from pydantic library for data validation and schema definition
 from pydantic import BaseModel
 # Import several components from sqlmodel library for ORM functionality
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
+# Load environment variables from .env file
+load_dotenv()
 
+# Load database credentials from environment variables
+mysql_name = os.getenv("MYSQL_NAME")
+mysql_user = os.getenv("MYSQL_USER")
+mysql_password = os.getenv("MYSQL_PASSWORD")
+mysql_host = os.getenv("MYSQL_HOST")
+mysql_port = os.getenv("MYSQL_PORT")
+
+# Construct MySQL connection URL using PyMySQL driver
+# Format: mysql+pymysql://username:password@host:port/database_name
+mysql_url = f"mysql+pymysql://{mysql_user}:{mysql_password}@{mysql_host}:{mysql_port}/{mysql_name}"
 
 # Define a Task model class that inherits from SQLModel
 # The table=True parameter indicates this class will be mapped to a database table
@@ -23,16 +37,7 @@ class User(SQLModel, table = True):
     id: int | None = Field(default=None,primary_key=True)
     email : str = Field(default="")
     password : str = Field(default="")
-    
 
-
-
-
-# Define database name
-mysql_name = "root"
-# Construct MySQL connection URL using PyMySQL driver
-# Format: mysql+pymysql://username:password@host:port/database_name
-mysql_url = f"mysql+pymysql://root:Bryan%4034@localhost:3306/{mysql_name}"
 
 # Create database engine using the connection URL
 # This establishes a connection pool to the database
