@@ -3,3 +3,4 @@ sqlmodel
 pymysql
 cryptography
 python-dotenv
+passlib
